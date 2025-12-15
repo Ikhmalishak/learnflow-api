@@ -12,8 +12,10 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return Course::all();
-    }
+        return response()->json([
+            'message' => 'success',
+            'enrollment' => Course::all()
+        ]);    }
 
     /**
      * Store a newly created resource in storage.

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\LessonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,3 +17,4 @@ Route::post('/logout',[AuthController::class,'logout'])->middleware('auth:sanctu
 
 Route::apiResource('courses', CourseController::class)->middleware('auth:sanctum');
 Route::apiResource('lessons', LessonController::class)->middleware('auth:sanctum');
+Route::apiResource('enrollments', EnrollmentController::class)->middleware('auth:sanctum');

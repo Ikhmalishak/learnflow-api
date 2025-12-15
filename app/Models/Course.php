@@ -18,5 +18,10 @@ class Course extends Model
     public function lesson(): HasMany
     {
         return $this->HasMany(Lesson::class);
-    } 
+    }
+
+    public function enrollments(): HasMany
+    {
+        return $this->hasMany(Enrollment::class);
+    }
 }
