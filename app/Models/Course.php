@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Course extends Model
 {
@@ -13,5 +14,9 @@ class Course extends Model
         'instructor',
         'price'
     ];
-    
+
+    public function lesson(): HasMany
+    {
+        return $this->HasMany(Lesson::class);
+    } 
 }

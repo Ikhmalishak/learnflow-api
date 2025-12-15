@@ -36,7 +36,7 @@ class CourseController extends Controller
         $course = Course::create($validated);
 
         return response()->json([
-            'messages' => 'Success Create Course',
+            'message' => 'Success Create Course',
             'course' => $course
         ]);
     }
@@ -47,7 +47,7 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         return response()->json([
-            'messages' => "Success fetch course id {$course->id}",
+            'message' => "Success fetch course id {$course->id}",
             'course' => $course
         ]);
     }
