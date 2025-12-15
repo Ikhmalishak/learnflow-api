@@ -58,19 +58,16 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:50',
-            'description' => 'required|string|max:100',
+            'title' => 'string|max:50',
+            'description' => 'string|max:100',
             'thumbnail' => 'file',
-            'instructor' => 'required|string',
-            'price' => 'required|numeric|min:0|max:1000',
+            'instructor' => 'string',
+            'price' => 'numeric|min:0|max:1000',
         ]);
 
-        if ($request->hasFile('thumbnail')){
-            dd("test");
-            $validated['thumbnail'] = $request->file('thumbnail')->store('images','public');
+        if ($request->hasFile('thumbnail')) {
+            $validated['thumbnail'] = $request->file('thumbnail')->store('images', 'public');
         }
-
-        dd($validated);
 
         $course->update($validated);
 
@@ -85,6 +82,10 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+
+        return response()->json([
+            'message' => 'Success',
+        ]);
     }
 }
