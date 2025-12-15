@@ -48,8 +48,14 @@ class User extends Authenticatable
         ];
     }
 
-    public function enrollments():HasMany
+    public function enrollments(): HasMany
     {
         return $this->hasMany(Enrollment::class);
     }
+
+    public function lessonCompletions(): HasMany
+    {
+        return $this->hasMany(LessonCompletion::class);
+    }
+
 }

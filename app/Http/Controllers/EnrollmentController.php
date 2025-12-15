@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class EnrollmentController extends Controller
 {
@@ -24,12 +25,24 @@ class EnrollmentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
             'course_id' => 'required|exists:courses,id',
         ]);
 
+        $userId = auth()->id(); // Always use authenticated user
+
+        $existingEnrollment = Enrollment::where('user_id', $userId)
+            ->where('course_id', $validated['course_id'])
+            ->first();
+
+        if ($existingEnrollment) {
+            return response()->json([
+                'message' => 'You are already enrolled in this course',
+                'enrollment' => $existingEnrollment
+            ], 422);
+        }
+
         $enrollment = Enrollment::create([
-            'user_id' => $validated['user_id'],
+            'user_id' => $userId,
             'course_id' => $validated['course_id'],
             'progress_percentage' => 0,
         ]);
